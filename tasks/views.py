@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from .forms import TaskForm
 
-
+def task_list(request):
+    pass
 def add_task(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
