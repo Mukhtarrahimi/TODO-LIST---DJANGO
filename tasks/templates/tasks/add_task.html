@@ -1,0 +1,20 @@
+{% extends 'parent/base.html' %}
+{% block title %}Task List{% endblock %}
+
+{% block content %}
+  <h2 class="text-xl font-semibold mb-4">Tasks</h2>
+
+  <ul class="space-y-2">
+    {% for task in tasks %}
+      <li class="flex justify-between items-center bg-white shadow p-4 rounded">
+        <div>
+          <p class="font-medium">{{ task.title }}</p>
+          <p class="text-gray-600 text-sm">{{ task.content }}</p>
+        </div>
+        <span class="text-xs text-gray-500">{{ task.created|date:"Y-m-d H:i" }}</span>
+      </li>
+    {% empty %}
+      <li class="text-gray-500">No tasks yet</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
