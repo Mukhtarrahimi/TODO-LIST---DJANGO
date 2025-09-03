@@ -1,0 +1,14 @@
+{% extends 'parent/base.html' %}
+{%block title%}details task {%endblock%}
+
+{%blcok content%}
+    <form method="post">
+        <h2>detals task</h2>
+        {% csrf_token %}
+        <p>form.title</p>
+        <p>form.content</p>
+        <p>form.created</p>
+        <p>form.completed</p>
+        <a href="{{url: 'tasks:task_list'}}">back to list</a>
+    </form>
+{%endblock%}
