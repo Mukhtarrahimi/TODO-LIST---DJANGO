@@ -1,9 +1,21 @@
 {% extends 'parent/base.html' %}
-
 {% block title %}Task List{% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto mt-6">
+
+    <!-- 📅 هفته -->
+    <div class="flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow mb-6">
+        {% for day in week_days %}
+            <div class="flex flex-col items-center px-3 py-2 rounded-lg 
+                        {% if day == today %} bg-blue-500 text-white font-bold {% else %} text-gray-700 {% endif %}">
+                <span class="text-sm">{{ day|date:"D" }}</span> <!-- Sat, Sun, Mon -->
+                <span class="text-lg">{{ day|date:"d" }}</span> <!-- شماره روز -->
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- 📋 لیست تسک‌ها -->
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-2xl font-bold text-gray-800">📋 Task List</h2>
         <a href="{% url 'tasks:add_task' %}" 
