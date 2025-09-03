@@ -3,17 +3,36 @@
 {% block title %}Task List{% endblock %}
 
 {% block content %}
-  <a href="{% url 'tasks:add_task' %}" 
-     class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">+ Add Task</a>
+<div class="max-w-3xl mx-auto mt-6">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">📋 Task List</h2>
+        <a href="{% url 'tasks:add_task' %}" 
+           class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition">
+            + Add Task
+        </a>
+    </div>
 
-  <ul class="mt-6 space-y-2">
-    {% for task in tasks %}
-      <li class="flex justify-between items-center bg-white shadow p-4 rounded">
-        <span>{{ task.title }}</span>
-        <span class="text-sm text-gray-500">{{ task.created|date:"Y-m-d H:i" }}</span>
-      </li>
-    {% empty %}
-      <li class="text-gray-500">No tasks yet</li>
-    {% endfor %}
-  </ul>
+    <ul class="space-y-3">
+        {% for task in tasks %}
+            <li class="bg-white shadow rounded-lg p-4 flex justify-between items-center hover:shadow-md transition">
+                <div>
+                    <a href="{% url 'tasks:task_detail' task.id %}" 
+                       class="text-lg font-medium text-blue-600 hover:underline">
+                        {{ task.title }}
+                    </a>
+                    <p class="text-sm text-gray-500">
+                        Created: {{ task.created|date:"Y-m-d H:i" }}
+                    </p>
+                </div>
+                {% if task.completed %}
+                    <span class="text-green-600 font-semibold">✔ Completed</span>
+                {% else %}
+                    <span class="text-yellow-500 font-semibold">⏳ Pending</span>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li class="text-gray-500 italic">No tasks yet...</li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}
