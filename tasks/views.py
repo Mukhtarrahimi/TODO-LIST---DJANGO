@@ -1,11 +1,26 @@
 from django.shortcuts import render, redirect
 from .models import Task
 from .forms import TaskForm
+from datetime import datetime, timedelta
 
 
 def task_list(request):
     tasks = Task.objects.all()
-    return render(request, "tasks/task_list.html", {"tasks": tasks})
+
+    today = datetime.today().date()
+    week_days = [
+        (today + timedelta(days=i)) for i in range(-3, 4)
+    ]  # سه روز قبل تا سه روز بعد
+
+    return render(
+        request,
+        "tasks/task_list.html",
+        {
+            "tasks": tasks,
+            "today": today,
+            "week_days": week_days,
+        },
+    )
 
 
 def task_detail(request, task_id):
